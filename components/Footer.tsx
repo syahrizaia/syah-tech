@@ -7,6 +7,7 @@ import {
   Radio
 } from "lucide-react";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+import SyahTechLogo from "./SyahTechLogo";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -24,7 +25,8 @@ export default function Footer() {
           
           {/* Kolom 1: Profil Brand & Status (col-span-2 agar full-width di mobile) */}
           <div className="space-y-5 col-span-2 md:col-span-1">
-            <Link href="/" className="text-xl font-display font-extrabold text-white tracking-wide group block">
+            <Link href="/" className="text-xl font-display font-extrabold text-white tracking-wide group block flex items-center gap-2">
+              <SyahTechLogo iconSize={36} showText={false} />
               SYAH{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyber-cyan to-cyber-blue">
                 TECH

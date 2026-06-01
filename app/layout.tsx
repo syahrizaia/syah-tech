@@ -19,6 +19,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Syah Tech",
   description: "Syah Tech is a software development company specializing in web and mobile applications. We provide innovative solutions to help businesses thrive in the digital age.",
+  icons: {
+    icon: "/icon.svg",
+    apple: "/icon.svg",
+    shortcut: "/icon.svg",
+  },
 };
 
 

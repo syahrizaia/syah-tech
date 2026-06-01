@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Radio } from "lucide-react";
+import SyahTechLogo from "./SyahTechLogo";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -60,6 +61,7 @@ export default function Navbar() {
           className="text-xl md:text-2xl font-display font-extrabold text-white tracking-wide z-50 group flex items-center gap-2 pr-6"
           onClick={closeMenu}
         >
+          <SyahTechLogo iconSize={36} showText={false} />
           SYAH{" "}
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyber-cyan to-cyber-blue group-hover:from-cyber-blue group-hover:to-cyber-purple transition-all duration-300">
             TECH
