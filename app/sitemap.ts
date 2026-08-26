@@ -5,7 +5,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const routes = [
     "",
-    "/landing-page",
     "/products",
     "/solutions",
     "/innovation",
