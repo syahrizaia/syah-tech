@@ -4,9 +4,19 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Radio } from "lucide-react";
+import { usePathname } from "next/navigation";
 import SyahTechLogo from "./SyahTechLogo";
 
+const navigation = [
+  { href: "/", label: "Beranda" },
+  { href: "/products", label: "Produk" },
+  { href: "/solutions", label: "Solusi" },
+  { href: "/innovation", label: "Inovasi" },
+  { href: "/careers", label: "Karier" },
+];
+
 export default function Navbar() {
+  const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -44,10 +54,10 @@ export default function Navbar() {
     >
       <nav
         // ─── EFEK LIQUID GLASS FUTURISTIK ───
-        className={`relative flex items-center justify-between gap-6 w-fit max-w-6xl px-4 md:px-8 py-2.5 md:py-3.5 rounded-full transition-all duration-500 ${
+        className={`relative flex items-center justify-between gap-4 w-full max-w-6xl px-4 md:px-6 py-2.5 md:py-3 rounded-2xl md:rounded-full transition-all duration-500 ${
           isScrolled || isMobileMenuOpen
-            ? "bg-obsidian-900/40 backdrop-blur-xl border border-cyber-cyan/20 shadow-[0_0_30px_rgba(0,242,254,0.08)]"
-            : "bg-white/[0.01] backdrop-blur-sm border border-white/5"
+            ? "bg-[#0a0d16]/80 backdrop-blur-2xl border border-white/10 shadow-[0_12px_50px_rgba(0,0,0,0.32)]"
+            : "bg-[#0a0d16]/55 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.18)]"
         }`}
       >
         {/* Glow Dekoratif di Belakang Nav Pill (Hanya Muncul Saat di-Scroll) */}
@@ -69,32 +79,18 @@ export default function Navbar() {
         </Link>
 
         {/* Menu Navigasi (Desktop) */}
-        <ul className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-text">
-          <li>
-            <Link href="/" className="hover:text-cyber-cyan transition-colors relative py-1 block">
-              Beranda
-            </Link>
-          </li>
-          <li>
-            <Link href="/products" className="hover:text-cyber-cyan transition-colors relative py-1 block">
-              Produk
-            </Link>
-          </li>
-          <li>
-            <Link href="/solutions" className="hover:text-cyber-cyan transition-colors relative py-1 block">
-              Solusi
-            </Link>
-          </li>
-          <li>
-            <Link href="/innovation" className="hover:text-cyber-cyan transition-colors relative py-1 block">
-              Inovasi
-            </Link>
-          </li>
-          <li>
-            <Link href="/careers" className="hover:text-cyber-cyan transition-colors relative py-1 block">
-              Karier
-            </Link>
-          </li>
+        <ul className="hidden md:flex items-center gap-1 text-[13px] font-medium text-slate-text">
+          {navigation.map((item) => {
+            const active = pathname === item.href || (item.href !== "/" && pathname.startsWith(`${item.href}/`));
+            return (
+              <li key={item.href}>
+                <Link href={item.href} aria-current={active ? "page" : undefined} className={`relative block rounded-full px-3.5 py-2 transition-colors hover:text-white ${active ? "text-white bg-white/[0.07]" : ""}`}>
+                  {item.label}
+                  {active && <motion.span layoutId="active-route" className="absolute inset-x-3 bottom-0 h-px bg-gradient-to-r from-cyber-cyan to-cyber-blue" />}
+                </Link>
+              </li>
+            );
+          })}
         </ul>
 
         {/* Tombol Call-to-Action / Konsultasi (Desktop) */}
@@ -136,52 +132,11 @@ export default function Navbar() {
               <Radio className="w-3 h-3 animate-pulse" /> Navigation Core
             </div>
 
-            <ul className="flex flex-col gap-3 text-center">
-              <li>
-                <Link 
-                  href="/" 
-                  className="block py-2 text-base font-medium text-white hover:text-cyber-cyan hover:bg-white/5 rounded-xl transition-all"
-                  onClick={closeMenu}
-                >
-                  Beranda
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href="/products" 
-                  className="block py-2 text-base font-medium text-white hover:text-cyber-cyan hover:bg-white/5 rounded-xl transition-all"
-                  onClick={closeMenu}
-                >
-                  Produk
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href="/solutions" 
-                  className="block py-2 text-base font-medium text-white hover:text-cyber-cyan hover:bg-white/5 rounded-xl transition-all"
-                  onClick={closeMenu}
-                >
-                  Solusi
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href="/innovation" 
-                  className="block py-2 text-base font-medium text-white hover:text-cyber-cyan hover:bg-white/5 rounded-xl transition-all"
-                  onClick={closeMenu}
-                >
-                  Inovasi
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href="/careers" 
-                  className="block py-2 text-base font-medium text-white hover:text-cyber-cyan hover:bg-white/5 rounded-xl transition-all"
-                  onClick={closeMenu}
-                >
-                  Karier
-                </Link>
-              </li>
+            <ul className="flex flex-col gap-1">
+              {navigation.map((item) => {
+                const active = pathname === item.href || (item.href !== "/" && pathname.startsWith(`${item.href}/`));
+                return <li key={item.href}><Link href={item.href} aria-current={active ? "page" : undefined} className={`block rounded-xl px-4 py-3 text-sm font-medium transition-all hover:bg-white/5 ${active ? "text-cyber-cyan bg-white/[0.04]" : "text-white"}`} onClick={closeMenu}>{item.label}</Link></li>;
+              })}
             </ul>
             
             <hr className="border-white/10" />
